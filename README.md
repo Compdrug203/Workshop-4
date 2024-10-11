@@ -60,14 +60,59 @@ Finally, ligands (L) can be introduced to cells thatcan infl uence the activatio
 
 ### 1a: Casting the net
 
+This means we have 6 variables:
+L: ligand
+G: gene activation
+M: mutation
+F: correct folding
+H: hydrolysis
+S: stability
+There are therefore several probability tables. Below are their defi nitions, where we assign boolean values to each of thevariables, and the tables are listed below the defi nitions
+p(L = 1): probability of a ligand being present
+p(M = 1): probability of a mutation occurring
+p(H = 1): probability of a protein being hydrolyzed
+p(G = 1|L): probability of a gene being activated given the presence of a ligand
+p(F = 1|M, G): probability of the protein correctly folding given the presence of a mutation and the gene being activated
+p(S = 1|H, F): probability of the protein being stable, given the occurrence of a hydrolysis and the protein being correctlyfolded
 
-Thus, Spectre can carry out their mission by performing the following steps:
->- Hire professional hackers who can write programs to launch a cyberattack on Q’s personal database.
->- Buy a state-of-the-art computer called “Contra” to actually launch this cyberattack.
->- Hire ruthless mercenaries to kidnap M and get access to the key.
->- Make sure Bond is not available with M at the time of the kidnapping.
->- Use the cipher and key to access the target “Double-0” files.
+<table>
+<tr><th>  </th><th> </th></tr>
+<tr><td>
 
+L | P(L)
+--- | --- 
+1 | 0.7
+0 | 0.3
+
+</td><td><td>
+
+
+M | P(M)
+--- | --- 
+1 | 0.3
+0 | 0.7
+
+</td></tr> </table>
+
+
+<table>
+<tr><th>  </th><th> </th></tr>
+<tr><td>
+
+L | P(L)
+--- | --- 
+1 | 0.7
+0 | 0.3
+
+</td><td><td>
+
+
+M | P(M)
+--- | --- 
+1 | 0.3
+0 | 0.7
+
+</td></tr> </table>
 
 Sensing the imminent danger, MI6 has hired you to design a Bayes Network for modeling this espionage mission, so that it can be avoided. MI6 requires that you use the following name attributes for the nodes in your Bayes Network:
 >- “H”: The event that Spectre hires professional hackers 
