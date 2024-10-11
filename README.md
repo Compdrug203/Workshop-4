@@ -1,28 +1,6 @@
-## CS 6601 Assignment 3: Bayes Nets
+## Workshop 4: Bayes Nets
 
 In this assignment, you will work with probabilistic models known as Bayesian networks to efficiently calculate the answer to probability questions concerning discrete random variables.
-
-### Resources
-
-You will find the following resources helpful for this assignment.
-
-*Canvas Videos:*  
-Lecture 5 on Probability<br>
-Lecture 6 on Bayes Nets
-
-*Textbook:*   
-4th edition: <br>
-Chapter 12: Quantifying Uncertainty <br>
-Chapter 13: Probabilistic Reasoning  <br>
-
-3rd edition: <br>
-Chapter 13: Quantifying Uncertainty <br>
-Chapter 14: Probabilistic Reasoning  <br>
-
-*Others:*   
-[Markov Chain Monte Carlo](https://github.gatech.edu/omscs6601/assignment_3/blob/master/resources/LESSON1_Notes_MCMC.pdf)  
-[Gibbs Sampling](http://gandalf.psych.umn.edu/users/schrater/schrater_lab/courses/AI2/gibbs.pdf)  
-[Metropolis Hastings Sampling - 1](https://github.gatech.edu/omscs6601/assignment_3/blob/master/resources/mh%20sampling.pdf)  
 
 
 ### Setup
@@ -30,17 +8,17 @@ Chapter 14: Probabilistic Reasoning  <br>
 1. Clone the project repository from Github
 
    ```
-   git clone https://github.gatech.edu/6601Spr24/a3_<gt_github_username>.git
+   git clone this_repo
    ```
 
 Substitute your actual username where the angle brackets are.
 
-2. Navigate to `assignment_3/` directory
+2. Navigate to directory
 
-3. Activate the environment you created during Assignment 0 
+3. Activate the environment 
 
     ```
-    conda activate ai_env
+    conda activate env
     ```
     
     In case you used a different environment name, to list of all environments you have on your machine you can run `conda env list`.
@@ -52,33 +30,36 @@ Substitute your actual username where the angle brackets are.
     pip install --upgrade -r requirements.txt
     ```
 
-### Submission
-
-Please include all of your own code for submission in `submission.py`.  
-
-**Important: There is a TOTAL submission limit of 5 on Gradescope for this assignment. This means you can submit a maximum of 5 times during the duration of the assignment. Please use your submissions carefully and do not submit until you have thoroughly tested your code locally.**
-
-**If you're at 4 submissions, use your fifth and last submission wisely. The submission marked as ‘Active’ in Gradescope will be the submission counted towards your grade.**
-
-### Restrictions
-
-You are not allowed to use following set of modules from 'pgmpy' Library.
-
->- pgmpy.sampling.*
->- pgmpy.factor.*
->- pgmpy.estimators.*
 
 ## Part 1 Bayesian network tutorial:
 
-_[35 points total]_
+The problem below is designed to view how materials in the course could be used in natural sciences. You will solve a Bayesian
+network question using similar principles from A3, where the variables are bolded. Paragraphs that serve as extra information to
+provide context to the reader are in italics. The team understands that sometimes probability notation can b e confusing, so we
+have tried to be as clear as possible to avoid any confusion.
+The 􀃘eld of molecular biology has a concept called the "central dogma of molecular biology". This dogma states that the 􀃙ow of genetic
+information goes from DNA to RNA, and then the information from RNA gets translated into proteins. In eukaryotes (e.g. mammals, birds,
+reptiles), DNA is protected in the nucleus of the cells, and an RNA copy has to be made in order to generate proteins. Proteins can be used
+for a variety of biological applications. They can serve as a receptors (e.g. receptors in the cells in our noses to detect different smells), as
+enzymes (e.g. lactose-intolerant people can add lactase in milk to break down lactose, allowing them to consume milk), as hormones (e.g.
+insulin for diabetic individuals), and many other cases. For example, the mRNA COVID vaccines are used to generate the spike proteins in
+the coronaviruses (which when assembled in a full viral capside, it’s used to penetrate the host cells, causing infection). For simplicity, we
+will use the term "protein" as a generic term to also include "peptides".
 
 To start, design a basic probabilistic model for the following system:
 
-James Bond, Q (Quartermaster), and M (Head of MI6) are in charge of the security system at MI6, the Military Intelligence Unit of the British Secret Service. MI6 runs a special program called “Double-0”, where secret spy agents are trained and deployed to gather information concerning national security. A terrorist organization named “Spectre” is planning an espionage mission and its aim is to gain access to the secret “Double-0” files stored in the MI6 database. Q has designed a special security system to protect the secret “Double-0” files. In order to gain access to these files, Spectre needs to steal from MI6 a cipher and the key to crack this cipher. Q stores this cipher in his personal database, which is guarded by heavy security protocols. The key to cracking the cipher is known only to M, who is protected by Bond. 
+For this problem, we will be modeling the synthesis of proteins and their stability inside cells. 
+To keep the previous paragraphsimple, DNA is used to create RNA, and RNA is used to create proteins. 
+In order to create RNA, we need to activate a gene (G).This essentially means turning a gene ON from its OFF state. 
+This will lead to the creation of RNA, and then RNA can be used tocreate proteins. 
+Proteins, however, can often have stochastic behaviors, especially due to is polymeric structure. 
+In order for aprotein to have its expected function, it needs to have a correct folding (F), which in turn will lead to have some stability (S).
+Unfortunately, mutations (M) can occur at the DNA or at the RNA. Sometimes mutations can be negligent, but sometimes, amutation (M) can lead to an incorrect folding (i.e. not correct folding (F)). 
+After a protein has been synthesized, it will begin itsfunction, but proteins have an "expiration date". These expiration dates often are dictated by other factors inside cells (e.g.enzymes). If a protein is not correctly, folded, it will not be stable. Also, after some time, these other factors can perform a hydrolysis (H) on the protein and destabilize the protein, ceasing its function. 
+Finally, ligands (L) can be introduced to cells thatcan infl uence the activation of genes (G) either directly or indirectly. For example, certain drugs can be used as ligands to specifi ccell receptors that induce a cascade of events that ultimately activates a gene.
 
 ### 1a: Casting the net
 
-_[10 points]_
 
 Thus, Spectre can carry out their mission by performing the following steps:
 >- Hire professional hackers who can write programs to launch a cyberattack on Q’s personal database.
