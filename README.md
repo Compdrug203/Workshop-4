@@ -99,20 +99,27 @@ M | P(M)
 <tr><th>  </th><th> </th></tr>
 <tr><td>
 
-L | P(L)
+H | P(H)
 --- | --- 
-1 | 0.7
-0 | 0.3
+1 | 0.4
+0 | 0.6
 
 </td><td><td>
 
 
-M | P(M)
---- | --- 
-1 | 0.3
-0 | 0.7
+L | P(G=1|L) | P(G=0|L) 
+--- | --- | --- 
+1 | 0.9 | 0.1
+0 | 0.2 | 0.8
 
 </td></tr> </table>
+
+M | G | P(F=1|M, G) | P(F=1|M, G) 
+--- | --- | --- | --- 
+1 | 1 | 0.9 | 0.1
+0 | 0 | 0.2 | 0.8
+1 | 0 | 0.9 | 0.1
+0 | 0 | 0.2 | 0.8
 
 Sensing the imminent danger, MI6 has hired you to design a Bayes Network for modeling this espionage mission, so that it can be avoided. MI6 requires that you use the following name attributes for the nodes in your Bayes Network:
 >- “H”: The event that Spectre hires professional hackers 
