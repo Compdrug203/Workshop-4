@@ -61,19 +61,21 @@ Finally, ligands (L) can be introduced to cells thatcan infl uence the activatio
 ### 1a: Casting the net
 
 This means we have 6 variables:
-L: ligand
-G: gene activation
-M: mutation
-F: correct folding
-H: hydrolysis
-S: stability
+- L: ligand
+- G: gene activation
+- M: mutation
+- F: correct folding
+- H: hydrolysis
+- S: stability
+
+  
 There are therefore several probability tables. Below are their defi nitions, where we assign boolean values to each of thevariables, and the tables are listed below the defi nitions
-p(L = 1): probability of a ligand being present
-p(M = 1): probability of a mutation occurring
-p(H = 1): probability of a protein being hydrolyzed
-p(G = 1|L): probability of a gene being activated given the presence of a ligand
-p(F = 1|M, G): probability of the protein correctly folding given the presence of a mutation and the gene being activated
-p(S = 1|H, F): probability of the protein being stable, given the occurrence of a hydrolysis and the protein being correctlyfolded
+- p(L = 1): probability of a ligand being present
+- p(M = 1): probability of a mutation occurring
+- p(H = 1): probability of a protein being hydrolyzed
+- p(G = 1|L): probability of a gene being activated given the presence of a ligand
+- p(F = 1|M, G): probability of the protein correctly folding given the presence of a mutation and the gene being activated
+- p(S = 1|H, F): probability of the protein being stable, given the occurrence of a hydrolysis and the protein being correctlyfolded
 
 <table>
 <tr><th>  </th><th> </th></tr>
@@ -94,7 +96,6 @@ M | P(M)
 
 </td></tr> </table>
 
-
 <table>
 <tr><th>  </th><th> </th></tr>
 <tr><td>
@@ -107,38 +108,19 @@ H | P(H)
 </td><td><td>
 
 
-L | P(G=1|L) | P(G=0|L) 
+L | P(G=1 \| L) | P(G=0 \| L) 
 --- | --- | --- 
 1 | 0.9 | 0.1
 0 | 0.2 | 0.8
 
 </td></tr> </table>
 
-M | G | P(F=1|M, G) | P(F=1|M, G) 
+M | G | P(F=1 \| M, G) | P(F=1 \| M, G) 
 --- | --- | --- | --- 
 1 | 1 | 0.9 | 0.1
 0 | 0 | 0.2 | 0.8
 1 | 0 | 0.9 | 0.1
 0 | 0 | 0.2 | 0.8
-
-Sensing the imminent danger, MI6 has hired you to design a Bayes Network for modeling this espionage mission, so that it can be avoided. MI6 requires that you use the following name attributes for the nodes in your Bayes Network:
->- “H”: The event that Spectre hires professional hackers 
->- “C”: The event that Spectre buys Contra
->- “M”: The event that Spectre hires mercenaries
->- “B”: The event that Bond is guarding M at the time of the kidnapping
->- “Q”: The event that Q’s database is hacked and the cipher is compromised
->- “K”: The event that M gets kidnapped and has to give away the key
->- “D”: The event that Spectre succeeds in obtaining the “Double-0” files 
-
-
-Based on their previous encounters with Spectre, MI6 has provided the following classified information that can help you design your Bayes Network:  
->- Spectre will not be able to find and hire skilled professional hackers (call this false) with a probability of 0.5.
->- Spectre will get their hands on Contra (call this true) with a probability of 0.3.
->- Spectre will be unable to hire the mercenaries (call this false) with a probability of 0.2.
->- Since Bond is also assigned to another mission, the probability that he will be protecting M at a given moment (call this true) is just 0.5!
->- The professional hackers will be able to crack Q’s personal database (call this true) without using Contra with a probability of 0.55. However, if they get their hands on Contra, they can crack Q’s personal database with a probability of 0.9. In case Spectre can not hire these professional hackers, their less experienced employees will launch a cyberattack on Q’s personal database. In this case, Q’s database will remain secure with a probability of 0.75 if Spectre has Contra and with a probability of 0.95 if Spectre does not have Contra. 
->- When Bond is protecting M, the probability that M stays safe (call this false) is 0.85 if mercenaries conduct the attack. Else, when mercenaries are not present, it the probability that M stays safe is as high as 0.99! However, if M is not accompanied by Bond, M gets kidnapped with a probability of 0.95 and 0.75 respectively, with and without the presence of mercenaries. 
->- With both the cipher and the key, Spectre can access the “Double-0” files (call this true) with a probability of 0.99! If Spectre has none of these, then this probability drops down to 0.02! In case Spectre has just the cipher, the probability that the “Double-0” files remain uncompromised is 0.4. On the other hand, if Spectre has just the key, then this probability changes to 0.65.
 
 
 Use the description of the model above to design a Bayesian network for this model. The `pgmpy` package is used to represent nodes and conditional probability arcs connecting nodes. Don't worry about the probabilities for now. Use the functions below to create the net. You will write your code in `submission.py`. 
@@ -370,44 +352,3 @@ Note: **DO NOT USE the given inference engines or `pgmpy` samplers to run the sa
 
 You may find [this](http://gandalf.psych.umn.edu/users/schrater/schrater_lab/courses/AI2/gibbs.pdf) helpful in understanding the basics of Gibbs sampling over Bayesian networks. 
 
-
-### 2d: Metropolis-Hastings sampling
-
-_[15 points]_
-
-Now you will implement the independent Metropolis-Hastings sampling algorithm in `MH_sampler()`, which is another method for estimating a probability distribution.
-The general idea of MH is to build an approximation of a latent probability distribution by repeatedly generating a "candidate" value for each sample vector comprising of the random variables in the system, and then probabilistically accepting or rejecting the candidate value based on an underlying acceptance function. Unlike Gibbs, in case of MH, the returned state can differ from the initial state at more than one variable.
-This [paper](https://github.gatech.edu/omscs6601/assignment_3/blob/master/resources/MetropolisHastingsSampling.pdf) provides a nice intro.
-
-This method should just perform a single iteration of the algorithm. If an initial value is not given, default to a state chosen uniformly at random from the possible states. 
-
-Note: **DO NOT USE the given inference engines to run the sampling method**, since the whole point of sampling is to calculate marginals without running inference. 
-
-
-     "YOU WILL SCORE 0 POINTS IF YOU USE THE PROVIDED INFERENCE ENGINES, OR ANY OTHER SAMPLING METHOD"
-
-### 2e: Comparing sampling methods
-
-_[19 points]_
-
-Now we are ready for the moment of truth.
-
-Given the same outcomes as in 2b, A beats B and A draws with C, you should now estimate the likelihood of different outcomes for the third match by running Gibbs sampling until it converges to a stationary distribution. 
-We'll say that the sampler has converged when, for "N" successive iterations, the difference in expected outcome for the 3rd match differs from the previous estimated outcome by less than "delta". `N` is a positive integer, `delta` goes from `(0,1)`. For the most stationary convergence, `delta` should be very small. `N` could typically take values like 10,20,...,100 or even more.
-
-Use the functions from 2c and 2d to measure how many iterations it takes for Gibbs and MH to converge to a stationary distribution over the posterior. See for yourself how close (or not) this stable distribution is to what the Inference Engine returned in 2b. And if not, try tuning those parameters(N and delta). (You might find the concept of "burn-in" period useful). 
-
-You can choose any N and delta (with the bounds above), as long as the convergence criterion is eventually met. For the purpose of this assignment, we'd recommend using a delta approximately equal to 0.001 and N at least as big as 10. 
-
-Repeat this experiment for Metropolis-Hastings sampling.
-
-Fill in the function `compare_sampling()` to perform your experiments
-
-Which algorithm converges more quickly? By approximately what factor? For instance, if Metropolis-Hastings takes twice as many iterations to converge as Gibbs sampling, you'd say that Gibbs converged faster by a factor of 2. Fill in `sampling_question()` to answer both parts.
- 
-### 2f: Return your name
-
-_[1 point]_
-
-A simple task to wind down the assignment. Return your name from the function aptly called `return_your_name()`.
-~~~~~~~~
