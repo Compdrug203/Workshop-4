@@ -30,8 +30,15 @@ Substitute your actual username where the angle brackets are.
     pip install --upgrade -r requirements.txt
     ```
 
+## Part 1 Bayesian inference
 
-## Part 1 Bayesian network tutorial:
+Welcome to the first part of our tutorial on Bayesian inference. This section is designed as an easy-to-follow introduction and does not require writing any code. Instead, you'll be guided through a series of code examples provided in this Jupyter notebook Interence_example.ipynb . Your task is simply to read and execute each code cell to observe how Bayesian inference works in practice. 
+
+In this part of the tutorial, we'll explore an interesting scenario where the initial prior distribution is significantly different from the true underlying distribution. Despite this initial discrepancy, you'll see how incorporating more data points as evidence can lead to surprisingly accurate estimations.
+
+Please proceed carefully—read each part of the text and run all the code segments to fully appreciate how Bayesian updates improve the estimate over time, even when starting from an imprecise prior. This example will demonstrate the robustness and adaptability of Bayesian inference, highlighting its ability to converge towards the true distribution with the accumulation of more evidence.
+
+## Part 2 Bayesian network tutorial:
 
 The problem below is designed to view how materials in the course could be used in natural sciences. You will solve a Bayesian
 network question using similar principles from A3, where the variables are bolded. Paragraphs that serve as extra information to
@@ -58,7 +65,7 @@ Unfortunately, mutations (M) can occur at the DNA or at the RNA. Sometimes mutat
 After a protein has been synthesized, it will begin itsfunction, but proteins have an "expiration date". These expiration dates often are dictated by other factors inside cells (e.g.enzymes). If a protein is not correctly, folded, it will not be stable. Also, after some time, these other factors can perform a hydrolysis (H) on the protein and destabilize the protein, ceasing its function. 
 Finally, ligands (L) can be introduced to cells thatcan infl uence the activation of genes (G) either directly or indirectly. For example, certain drugs can be used as ligands to specifi ccell receptors that induce a cascade of events that ultimately activates a gene.
 
-### 1a: Casting the net
+### 2a: Casting the net
 
 This means we have 6 variables:
 - L: ligand
@@ -144,9 +151,8 @@ After you have implemented `make_security_system_net()`, you can run the followi
 python probability_tests.py ProbabilityTests.test_network_setup
 ```
 
-### 1b: Setting the probabilities
+### 2b: Setting the probabilities
 
-_[15 points]_
 
 Now set the conditional probabilities for the necessary variables on the network you just built.
 
@@ -200,20 +206,12 @@ You can check your probability distributions in the command line with
 python probability_tests.py ProbabilityTests.test_probability_setup
 ```
 
-### 1c: Probability calculations : Perform inference
+### 2c: Probability calculations : Perform inference
 
-_[10 points]_
 
-To finish up, you're going to perform inference on the network to calculate the following probabilities:
+To finish up, you're going to perform inference on the network to calculate the three probabilities in the jupyter notebook.
 
->- What is the marginal probability that the “Double-0” files get compromised? 
->- You just received an update that the British Elite Forces have successfully secured and shut down Contra, making it unavailable for Spectre. Now, what is the conditional probability that the “Double-0” files get compromised?
->- Despite shutting down Contra, MI6 still believes that an attack is imminent. Thus, Bond is reassigned full-time to protect M. Given this new update and Contra still shut down, what is the conditional probability that the “Double-0” files get compromised?
 
-You'll fill out the "get_prob" functions to calculate the probabilities:
-- `get_marginal_double0()`
-- `get_conditional_double0_given_no_contra()`
-- `get_conditional_double0_given_no_contra_and_bond_guarding()`
 
 Here's an example of how to do inference for the marginal probability of the "A" node being True (assuming `bayes_net` is your network):
 
@@ -230,4 +228,20 @@ To compute the conditional probability, set the evidence variables before comput
     
 __NOTE__: `marginal_prob` and `conditional_prob` return two probabilities corresponding to `[False, True]` case. You must index into the correct position in `prob` to obtain the particular probability value you are looking for. 
 
-If you need to sanity-check to make sure you're doing inference correctly, you can run inference on one of the probabilities that we gave you in 1a. For instance, running inference on P(M=false) should return 0.20 (i.e. 20%). However, due to imprecision in some machines it could appear as 0.199xx. You can also calculate the answers by hand to double-check.
+
+
+
+
+## Part 3 Naive Bayes
+
+
+In this section, contained within the Jupyter notebook, we delve into the practical application of the Naive Bayes classifier, a fundamental tool in machine learning for pattern recognition and data classification.
+
+This part of the tutorial is structured to be interactive yet straightforward:
+
+No Code Writing Needed: You are not required to write any code. Simply run through the pre-written code cells in the notebook to see the Naive Bayes classifier in action.
+Focus on Understanding: As you execute each cell, take the opportunity to understand how the Naive Bayes algorithm makes predictions and classifies data based on probabilities.
+For those who wish to explore further:
+
+Experiment with Data Splitting: Adjust the proportions in which the data is split into training and testing sets to observe how it impacts model performance.
+Feature Engineering: Feel free to experiment with feature engineering techniques to enhance the predictive accuracy of the classifier.
