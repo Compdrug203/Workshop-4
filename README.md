@@ -29,10 +29,14 @@ Substitute your actual username where the angle brackets are.
 4. Run the following command in the command line to install and update the required packages
 
     ```
-    pip install torch torchvision -f https://download.pytorch.org/whl/torch_stable.html
     pip install --upgrade -r requirements.txt
     ```
 
+5. (Optional) If you have problems finding the right env for running jupyter notebook in VS code.
+    ```
+    conda install ipykernel
+    python -m ipykernel install --user --name bayes_workshop --display-name "Python (bayes_workshop)"
+    ```
 ## Part 1 Bayesian inference
 
 Welcome to the first part of our tutorial on Bayesian inference. This section is designed as an easy-to-follow introduction and does not require writing any code. Instead, you'll be guided through a series of code examples provided in this Jupyter notebook Interence_example.ipynb . Your task is simply to read and execute each code cell to observe how Bayesian inference works in practice. 
