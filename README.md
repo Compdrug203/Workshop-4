@@ -13,12 +13,15 @@ In this assignment, you will work with probabilistic models known as Bayesian ne
 
 Substitute your actual username where the angle brackets are.
 
-2. Navigate to directory
+2. Navigate to directory and Run
+   ```
+   conda env create -f environment.yml
+   ```
 
 3. Activate the environment 
 
     ```
-    conda activate env
+    conda activate your_env 
     ```
     
     In case you used a different environment name, to list of all environments you have on your machine you can run `conda env list`.

@@ -1,0 +1,21 @@
+
+name: bayes_workshop
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - networkx
+  - numpy==1.23.5
+  - scipy
+  - pandas
+  - pyparsing
+  - torch
+  - statsmodels
+  - scikit-learn
+  - matplotlib
+  - tqdm
+  - joblib
+  - pgmpy
+  - pip
+  - pip:
+      - pytest # Assume you might need pytest for testing, added as an example
