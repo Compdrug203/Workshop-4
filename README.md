@@ -21,7 +21,7 @@ Substitute your actual username where the angle brackets are.
 3. Activate the environment 
 
     ```
-    conda activate your_env 
+    conda activate bayes_workshop
     ```
     
     In case you used a different environment name, to list of all environments you have on your machine you can run `conda env list`.
@@ -47,20 +47,16 @@ Please proceed carefully—read each part of the text and run all the code segme
 
 ## Part 2 Bayesian network tutorial:
 
-The problem below is designed to view how materials in the course could be used in natural sciences. You will solve a Bayesian
-network question using similar principles from A3, where the variables are bolded. Paragraphs that serve as extra information to
-provide context to the reader are in italics. The team understands that sometimes probability notation can b e confusing, so we
-have tried to be as clear as possible to avoid any confusion.
-The 􀃘eld of molecular biology has a concept called the "central dogma of molecular biology". This dogma states that the 􀃙ow of genetic
-information goes from DNA to RNA, and then the information from RNA gets translated into proteins. In eukaryotes (e.g. mammals, birds,
-reptiles), DNA is protected in the nucleus of the cells, and an RNA copy has to be made in order to generate proteins. Proteins can be used
-for a variety of biological applications. They can serve as a receptors (e.g. receptors in the cells in our noses to detect different smells), as
-enzymes (e.g. lactose-intolerant people can add lactase in milk to break down lactose, allowing them to consume milk), as hormones (e.g.
-insulin for diabetic individuals), and many other cases. For example, the mRNA COVID vaccines are used to generate the spike proteins in
-the coronaviruses (which when assembled in a full viral capside, it’s used to penetrate the host cells, causing infection). For simplicity, we
-will use the term "protein" as a generic term to also include "peptides".
+The problem below is designed to view how materials in the course could be used in natural sciences. You will solve a Bayesian network question. 
+We understands that sometimes probability notation can be confusing, so we have tried to be as clear as possible to avoid any confusion.
+The field of molecular biology has a concept called the "central dogma of molecular biology". 
+This dogma states that the flow of genetic information goes from DNA to RNA, and then the information from RNA gets translated into proteins
+In eukaryotes (e.g. mammals, birds, reptiles), DNA is protected in the nucleus of the cells, and an RNA copy has to be made in order to generate proteins. 
+Proteins can be used for a variety of biological applications. 
+They can serve as a receptors (e.g. receptors in the cells in our noses to detect different smells), as enzymes (e.g. lactose-intolerant people can add lactase in milk to break down lactose, allowing them to consume milk), as hormones (e.g. insulin for diabetic individuals), and many other cases. 
+For example, the mRNA COVID vaccines are used to generate the spike proteins in the coronaviruses (which when assembled in a full viral capside, it’s used to penetrate the host cells, causing infection). For simplicity, we will use the term "protein" as a generic term to also include "peptides".
 
-To start, design a basic probabilistic model for the following system:
+#### To start, design a basic probabilistic model for the following system:
 
 For this problem, we will be modeling the synthesis of proteins and their stability inside cells. 
 To keep the previous paragraphsimple, DNA is used to create RNA, and RNA is used to create proteins. 
@@ -68,9 +64,14 @@ In order to create RNA, we need to activate a gene (G).This essentially means tu
 This will lead to the creation of RNA, and then RNA can be used tocreate proteins. 
 Proteins, however, can often have stochastic behaviors, especially due to is polymeric structure. 
 In order for aprotein to have its expected function, it needs to have a correct folding (F), which in turn will lead to have some stability (S).
-Unfortunately, mutations (M) can occur at the DNA or at the RNA. Sometimes mutations can be negligent, but sometimes, amutation (M) can lead to an incorrect folding (i.e. not correct folding (F)). 
-After a protein has been synthesized, it will begin itsfunction, but proteins have an "expiration date". These expiration dates often are dictated by other factors inside cells (e.g.enzymes). If a protein is not correctly, folded, it will not be stable. Also, after some time, these other factors can perform a hydrolysis (H) on the protein and destabilize the protein, ceasing its function. 
-Finally, ligands (L) can be introduced to cells thatcan infl uence the activation of genes (G) either directly or indirectly. For example, certain drugs can be used as ligands to specifi ccell receptors that induce a cascade of events that ultimately activates a gene.
+Unfortunately, mutations (M) can occur at the DNA or at the RNA. 
+Sometimes mutations can be negligent, but sometimes, amutation (M) can lead to an incorrect folding (i.e. not correct folding (F)). 
+After a protein has been synthesized, it will begin itsfunction, but proteins have an "expiration date". 
+These expiration dates often are dictated by other factors inside cells (e.g.enzymes). 
+If a protein is not correctly, folded, it will not be stable. 
+Also, after some time, these other factors can perform a hydrolysis (H) on the protein and destabilize the protein, ceasing its function. 
+Finally, ligands (L) can be introduced to cells thatcan influence the activation of genes (G) either directly or indirectly. 
+For example, certain drugs can be used as ligands to specific cell receptors that induce a cascade of events that ultimately activates a gene.
 
 ### 2a: Casting the net
 
@@ -152,18 +153,14 @@ Use function `BayesNet.add_edge(<parent node name>,<child node name>)`.  For exa
     
     BayesNet.add_edge("parent","child")
 
-After you have implemented `make_security_system_net()`, you can run the following test in the command line to make sure your network is set up correctly.
-
-```
-python probability_tests.py ProbabilityTests.test_network_setup
-```
+For the first task, you should implement `protain_networkt()`. I suggest you to draw the graph first to make it clear. 
 
 ### 2b: Setting the probabilities
 
 
 Now set the conditional probabilities for the necessary variables on the network you just built.
 
-Fill in the function `set_probability()`
+Fill in the function `protain_network_cpd()`
 
 Using `pgmpy`'s `factors.discrete.TabularCPD` class: if you wanted to set the distribution for node 'A' with two possible values, where P(A) to 70% true, 30% false, you would invoke the following commands:
 
@@ -207,11 +204,6 @@ Add Tabular conditional probability distributions to the bayesian model instance
     bayes_net.add_cpds(cpd_a, cpd_ga, cpd_tag)
 
 
-You can check your probability distributions in the command line with
-
-```
-python probability_tests.py ProbabilityTests.test_probability_setup
-```
 
 ### 2c: Probability calculations : Perform inference
 
